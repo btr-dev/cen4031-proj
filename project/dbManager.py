@@ -5,7 +5,7 @@ import os
 
 # dbManager class
 # Class meant to be used by application layer as a means of adding
-#  to and retrieving from the database
+# to and retrieving from the database
 
 class dbManager():
 
