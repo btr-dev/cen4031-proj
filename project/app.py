@@ -6,32 +6,26 @@ import os
 app = Flask(__name__)
 
 class StopWatch:
-    def __init__(self, startTime = 0, endTime = 0, elapsedTime = 0):
-        self.__startTime = startTime
-        self.__endTime = endTime
-        self.__elapsedTime = elapsedTime
+    def __init__(self, flask_app):
+        self.start_time = 0
+        self.stop_time = 0 
+        self.running = False
+        self.dbmgr = dbManager(flask_app)
 
-    def start(self):
-        self.__startTime = time.clock()
-
-    def stop(self):
-        return self.getElapsedTime()
-
-    def reset(self):
-        self.__startTime = 0
-        self.__elapsedTime = 0
-
-    def getstarttime(self):
-        return self.__startTime
-
-    def getendtime(self):
-        return self.__endTime
-
-    def getElapsedTime(self):
-        elapsedTime = self.__elapsedTime
-        elapsedTime +=((time.clock() - self.__startTime) * 1000)
-        return elapsedTime
-
+    def startTimer(self):
+        if self.running == False:
+           self.start_time = time.time() 
+           self.running = True
+        return self.start_time
+    
+    def stopTimer(self):
+        if self.running == True:
+            self.stop_time = time.time()
+            self.dbmgr.add(self.stop_time - self.start_time)
+            self.running = False
+            return self.dbmgr.retrieve()
+        return []
+        
 @app.route("/", methods=["GET","POST"])
 def elaspedTime():
     if request.method == "POST":
