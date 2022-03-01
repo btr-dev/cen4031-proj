@@ -36,7 +36,8 @@ class StopWatch:
 def elaspedTime():
     if request.method == "POST":
         elapsedTime = request.form.get("elapsedTime")
-    return render_template("stopwatch.html",elapsedTime = elapsedTime)
+        ###double check if home.html is the correct destination
+    return render_template("home.html",elapsedTime = elapsedTime)
 
 if __name__ == '__main__':
     app.run(debug = True) 
