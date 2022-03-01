@@ -1,11 +1,10 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
 import os
 
 # dbManager class
 # Class meant to be used by application layer as a means of adding
-#  to and retrieving from the database
+# to and retrieving from the database
 
 class dbManager():
 
