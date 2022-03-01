@@ -3,17 +3,18 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import os
 
-# i think what i need is another class with the current functionality of dbmanager inside of it
-# this is a mess, but i don't want the class definition to be in the stub
-
-# a class that takes the database as an 
-# no, because i can't define the class in the constructor
-# i think it has to be done in the stub
+# dbManager class
+# Class meant to be used by application layer as a means of adding
+#  to and retrieving from the database
 
 class dbManager():
 
+    # Takes a Flask object as argument
+    # Connects the provided Flask object to the database
+    # and defines a WatchTime table with an automatically incrementing
+    # integer as the primary key, and a float holding the duration of a stopwatch run
     def __init__(self, app):
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(os.path.abspath(os.path.dirname(__file__)), 'test.db')
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(os.path.abspath(os.path.dirname(__file__)), 'data.db')
         self.db = SQLAlchemy(app)
 
 
@@ -34,11 +35,10 @@ class dbManager():
             result.append((time_data[d].__dict__['id'], time_data[d].__dict__['duration']))
         return result
 
+    # Takes a float as argument
+    # Adds a new entry to the database with an autoincrementing ID and
+    # the provided float as duration
     def add(self, time: float):
         new_time = self.WatchTime(duration = time)
         self.db.session.add(new_time)
-        self.db.session.commit()
-
-    def clear(self):
-        self.WatchTime.query.delete()
         self.db.session.commit()
