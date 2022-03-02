@@ -10,6 +10,7 @@ app.debug = True
 
 Articles = Articles()
 
+# Create Timer object from stopwatch class 
 timer = stop_watch.StopWatch(app)
 # This would be the return point for the elapsed time data to be displayed to
 # The website table.
