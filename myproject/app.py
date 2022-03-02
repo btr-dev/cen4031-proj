@@ -7,6 +7,8 @@ app.debug = True
 
 Articles = Articles()
 
+timer = stop_watch.StopWatch(app)
+
 @app.route('/')
 def index():
     return render_template('home.html')
@@ -27,11 +29,11 @@ def article(id):
 def button():
     if request.method == 'POST':
         if request.form['submit_button'] == 'START':
-            stop_watch.startTimer()
+            timer.startTimer()
             return render_template('home.html')
         elif request.form['submit_button'] == 'STOP':
-            print("test2")
-            return render_template('articles.html')
+            timer.stopTimer()
+            return render_template('home.html', Number=timer.getElapsedTime())
     elif request.method == 'GET':
         print("test4")
         return render_template('about.html')
