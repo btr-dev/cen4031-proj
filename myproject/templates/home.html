@@ -18,7 +18,9 @@
 
 .button1 {background-color: #4CAF50;} /* Green */
 .button2 {background-color: #FF0000;} /* Blue */
+.table
 </style>
+<link rel="stylesheet" href="static/syles.css"/>
 </head>
 <body>
 
@@ -28,10 +30,24 @@
 <!-- <button class="button button1">START</button>-->
 <!-- <button class="button button2">STOP</button>-->
 <form method="post">
-  <input type="submit" value="START" name="submit_button"/>
-  <input type="submit" value="STOP" name="submit_button"/>
+  <input type="submit" style="background-color:green;color:white;" value="START" name="submit_button"/>
+  <input type="submit" style="background-color:red;color:white;" value="STOP" name="submit_button"/>
   <br><br>
   <input type="textbox" name="text_box" value={{Number}}>
+  <table class= "table">
+    <tr class= "table__header">
+      {% for header in headings %}
+        <th class="table__cell">{{ header }}</th>
+      {% endfor %}
+    </tr>
+    {% for row in data %}
+      <tr class="table__row">
+        {% for cell in row %}
+          <td class="table__cell">{{ cell }}</td>
+        {% endfor %}
+      </tr>
+    {% endfor %}
+  </table
 </form>
 
 </body>
